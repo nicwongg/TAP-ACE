@@ -1,0 +1,77 @@
+{% extends 'header.html' %}
+
+{% block content %}
+<br>
+{% if result == [] %}
+{% if validation == None %}
+hihihihi
+{% endif %}
+<form action="/api/processteaminfo" method="POST">
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Team Information:</span>
+        </div>
+        <textarea class="form-control" rows="20" aria-label="With textarea" name="teamInfo" id="teamInfo">
+teamA 01/04 1
+teamB 02/05 1
+teamC 03/06 1
+teamD 04/06 1
+teamE 05/06 1
+teamF 15/06 1
+teamG 14/06 2
+teamH 13/06 2
+teamI 12/06 2
+teamJ 11/06 2
+teamK 10/06 2
+teamL 27/06 2</textarea>
+
+        <div class="input-group-prepend">
+            <span class="input-group-text">Match Information:</span>
+        </div>
+        <textarea class="form-control" rows="20" aria-label="With textarea" name="matchInfo" id="matchInfo">
+teamA teamB 0 1
+teamA teamC 1 3
+teamA teamD 2 2
+teamA teamE 2 4
+teamA teamF 3 3
+teamB teamC 0 1
+teamB teamD 2 2
+teamB teamE 4 0
+teamB teamF 0 0
+teamC teamD 2 0
+teamC teamE 0 0
+teamC teamF 1 0
+teamD teamE 0 3
+teamD teamF 2 1
+teamE teamF 3 4
+teamG teamH 3 2
+teamG teamI 0 4
+teamG teamJ 1 0
+teamG teamK 1 4
+teamG teamL 1 4
+teamH teamI 2 0
+teamH teamJ 3 0
+teamH teamK 3 4
+teamH teamL 0 1
+teamI teamJ 2 1
+teamI teamK 3 0
+teamI teamL 1 3
+teamJ teamK 1 4
+teamJ teamL 0 3
+teamK teamL 0 0</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% else %}
+<div class="text-center">
+    There is existing stored information, please click on the 'Teams', 'Match Outcomes' or 'Results' tabs to view them.
+    <br> <br>
+    Otherwise, please click the button to reset the info.
+    <br> <br>
+    <form action="/api/deleteallinfo">
+        <button type="submit" class="btn btn-danger">Wipe Current Info</button>
+    </form>
+</div>
+{% endif %}
+
+{% endblock %}
