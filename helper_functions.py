@@ -56,15 +56,16 @@ def process_match_info(team_groupings, team_join_date, request):
             team_alt_points[team] = 0
             team_goals[team] = 0
     for match in match_data:
-        match_info = match.strip("\r").split(" ")
-        team_1, team_2, team_1_goals_scored, team_2_goals_scored = match_info
-        process_match(team_points, team_alt_points,
-                      team_goals, team_1, team_2, int(team_1_goals_scored), int(team_2_goals_scored))
-        conn = get_db_connection()
-        conn_query = f"INSERT INTO outcomes (round, team_1, team_2, team_1_goal, team_2_goal) VALUES (1, '{team_1}', '{team_2}',  {int(team_1_goals_scored)}, {int(team_2_goals_scored)});"
-        conn.execute(conn_query)
-        conn.commit()
-        conn.close()
+        if match.strip() != "":
+            match_info = match.strip("\r").split(" ")
+            team_1, team_2, team_1_goals_scored, team_2_goals_scored = match_info
+            process_match(team_points, team_alt_points,
+                        team_goals, team_1, team_2, int(team_1_goals_scored), int(team_2_goals_scored))
+            conn = get_db_connection()
+            conn_query = f"INSERT INTO outcomes (round, team_1, team_2, team_1_goal, team_2_goal) VALUES (1, '{team_1}', '{team_2}',  {int(team_1_goals_scored)}, {int(team_2_goals_scored)});"
+            conn.execute(conn_query)
+            conn.commit()
+            conn.close()
     return process_first_round_winners(team_groupings, team_points, team_goals, team_alt_points, team_join_date)
 
 

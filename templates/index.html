@@ -3,8 +3,13 @@
 {% block content %}
 <br>
 {% if result == [] %}
-{% if validation == None %}
-hihihihi
+{% if validation|length > 0 %}
+<ul class="list-group">
+    {% for v in validation %}
+    <li class="list-group-item text-danger">{{ v }}</li>
+    {% endfor %}
+  </ul>
+  <br>
 {% endif %}
 <form action="/api/processteaminfo" method="POST">
     <div class="input-group">

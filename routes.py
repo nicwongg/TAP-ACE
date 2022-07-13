@@ -60,22 +60,24 @@ def process_team_info():
     team_join_date = {}
 
     for team_data in teams_data:
-        team_data = team_data.strip("\r").strip().split(" ")
-        team_name, join_date, group = team_data
-        group = int(group)
+        if team_data.strip() != "":
+            team_data = team_data.strip("\r").strip().split(" ")
 
-        if not sufficient_team_data(team_data):
-            validation.add("Some/all of the team data is incomplete")
+            if not sufficient_team_data(team_data):
+                validation.add("Some/all of the team data is incomplete")
+            else:
+                team_name, join_date, group = team_data
+                group = int(group)
 
-        try:
-            validate_provided_date(join_date)
-            team_join_date[team_name] = join_date
-        except:
-            validation.add("Some/all of the dates provided are not valid")
+            try:
+                validate_provided_date(join_date)
+                team_join_date[team_name] = join_date
+            except:
+                validation.add("Some/all of the dates provided are not valid")
 
-        team_groupings[group].append(team_name)
+            team_groupings[group].append(team_name)
 
-        add_into_teams_db(team_name, join_date, group)
+            add_into_teams_db(team_name, join_date, group)
 
     if not correct_number_of_teams_per_group(team_groupings):
         validation.add("There needs to be six teams in each group")
@@ -85,6 +87,7 @@ def process_team_info():
         conn.execute("DELETE FROM teams")
         conn.commit()
         conn.close()
+        return render_template("index.html", result=[], validation=validation)
 
     process_match_info(team_groupings, team_join_date, request)
 
