@@ -31,9 +31,10 @@ def matchoutcomes():
 @app.route("/results")
 def results():
     conn = get_db_connection()
-    results = conn.execute("SELECT * FROM results").fetchall()
+    results1 = conn.execute("SELECT * FROM results WHERE group_num = 1").fetchall()
+    results2 = conn.execute("SELECT * FROM results WHERE group_num = 2").fetchall()
     conn.close()
-    return render_template("results.html", results=results)
+    return render_template("results.html", results1=results1, results2=results2)
 
 
 @app.route("/api/deleteallinfo")

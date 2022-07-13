@@ -27,5 +27,6 @@ CREATE TABLE results (
 	points INTEGER,
 	alt_points INTEGER,
 	goals INTEGER,
+	ranking INTEGER,
 	PRIMARY KEY(round, team_name, group_num)
 );

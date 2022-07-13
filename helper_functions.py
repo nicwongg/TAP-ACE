@@ -93,10 +93,10 @@ def process_first_round_winners(team_groupings, team_points, team_goals, team_al
 
     for group in combined:
         s = sorted(combined[group], key=lambda x: (
-            x[1], x[2], x[3], datetime.strptime(x[4], '%d/%m')), reverse=True)[:4]
-        for team in s:
+            x[1], x[2], x[3], datetime.strptime(x[4], '%d/%m')), reverse=True)
+        for i in range(len(s)):
             conn = get_db_connection()
-            conn_query = f"INSERT INTO results (round, team_name, group_num, points, alt_points, goals) VALUES (1, '{team[0]}', '{group}',  {team[1]}, {team[2]}, {team[3]});"
+            conn_query = f"INSERT INTO results (round, team_name, group_num, points, alt_points, goals, ranking) VALUES (1, '{s[i][0]}', '{group}',  {s[i][1]}, {s[i][2]}, {s[i][3]}, {i+1});"
             conn.execute(conn_query)
             conn.commit()
             conn.close()
