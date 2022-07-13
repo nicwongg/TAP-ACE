@@ -11,4 +11,4 @@ The application is also hosted on: http://tap-ace.herokuapp.com (though there mi
 ### Assumptions: 
 
 1. The web application will only be used to store one round of team and match information.
-2. There will always only have 4 teams of each groups to advance (no tying for two top 4 teams)
+2. There will always only have 4 teams of each groups to advance (no tying for two 4th place teams)
